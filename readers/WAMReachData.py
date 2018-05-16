@@ -10,6 +10,11 @@ class WAMReachData:
     WAM Reach data class: contains data to manipulate reach data from WAM simulations. 
     Upon reading the file, sums various forms, e.g., Soluble N is NO3 + Organic N + dissolved NH3
     """
+
+    wam_reach_names = ['Date', 'YYYYDOY', 'Hr', 'Stage', 'Depth', 'Vel', 'Flow', 'FlowOutFrac', 'FlowOut', 'TSSOut', 'SolNO3Out', 
+        'SolNH4Out', 'SolOrgNOut', 'SolPOut', 'SedNH4Out', 'SedOrgNOut', 'SedPOut', 'BODOut', 'FlowInFrac', 'FlowIn', 'TSSIn', 
+        'SolNO3In', 'SolNH4In', 'SolOrgNIn', 'SolPIn', 'SedNH4In', 'SedOrgNIn', 'SedPIn', 'BODIn', 'Irrigation', 'AvgdT']
+
     def __init__(self, reach_data = None, filename = None):
         self.reach_data = reach_data
         self.filename = filename
@@ -22,12 +27,12 @@ class WAMReachData:
         Reach a WAM reach from the supplied filename
         """
         self.filename = filename
-        df = pd.read_csv(self.filename, parse_dates=True)
+        df = pd.read_csv(self.filename, parse_dates=True, header=0, names=self.wam_reach_names)
         # Create date-time index
         # See https://chrisalbon.com/python/pandas_time_series_basics.html
-        df['SimDate'] = pd.to_datetime(df['SimDate'])
-        df.index = df['SimDate']
-        del df['SimDate']
+        df['Date'] = pd.to_datetime(df['Date'])
+        df.index = df['Date']
+        # del df['SimDate']
         daily_vol = 24*3600*df.Flow
         df['TotalSolN'] = df.SolNO3Out + df.SolNH4Out + df.SolOrgNOut
         df['TotalPartN'] = df.SedNH4Out + df.SedOrgNOut

@@ -9,6 +9,7 @@ __pycache__/
 # User stuff
 *.csv
 notebooks/*.csv
+data/*.csv
 
 # Distribution / packaging
 .Python
