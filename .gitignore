@@ -10,6 +10,7 @@ __pycache__/
 *.csv
 notebooks/*.csv
 data/*.csv
+notebooks/*.json
 
 # Distribution / packaging
 .Python
