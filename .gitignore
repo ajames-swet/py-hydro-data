@@ -11,6 +11,7 @@ __pycache__/
 notebooks/*.csv
 data/*.csv
 notebooks/*.json
+notebooks/*.xlsx
 
 # Distribution / packaging
 .Python
